@@ -31,6 +31,8 @@ func main() {
 	var gc gameContainer
 	gc.draw()
 
+	shapeI.draw()
+
 	readKey()
 
 	close()
@@ -71,6 +73,77 @@ func load() {
 	termbox.Flush()
 
 }
+
+type point struct {
+	x, y int
+	char rune
+}
+
+type shape struct {
+	color  termbox.Attribute
+	points []point
+}
+
+const containerXOffset = 9
+const containerYOffset = 3
+
+func (s *shape) draw() {
+
+	for _, p := range s.points {
+		termbox.SetCell(p.x+containerXOffset, p.y+containerYOffset, p.char, termbox.ColorBlack, s.color)
+	}
+
+	termbox.Flush()
+
+}
+
+var shapeI = shape{
+	termbox.ColorBlue,
+	[]point{
+		{0, 0, '['},
+		{1, 0, ']'},
+		{2, 0, '['},
+		{3, 0, ']'},
+		{4, 0, '['},
+		{5, 0, ']'},
+		{6, 0, '['},
+		{7, 0, ']'}}}
+
+// var shapeJ = shape{[]point{
+// 	{0, 0},
+// 	{1, 0},
+// 	{2, 0},
+// 	{2, 1}}}
+//
+// var shapeL = shape{[]point{
+// 	{0, 0},
+// 	{1, 0},
+// 	{2, 0},
+// 	{0, 1}}}
+//
+// var shapeO = shape{[]point{
+// 	{0, 0},
+// 	{0, 1},
+// 	{1, 0},
+// 	{1, 1}}}
+//
+// var shapeS = shape{[]point{
+// 	{0, 0},
+// 	{1, 0},
+// 	{2, 0},
+// 	{3, 0}}}
+//
+// var shapeT = shape{[]point{
+// 	{0, 0},
+// 	{1, 0},
+// 	{2, 0},
+// 	{3, 0}}}
+//
+// var shapeZ = shape{[]point{
+// 	{0, 0},
+// 	{1, 0},
+// 	{2, 0},
+// 	{3, 0}}}
 
 type gameContainer struct{}
 
