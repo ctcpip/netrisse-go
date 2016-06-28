@@ -22,11 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-import (
-	"time"
-
-	"github.com/nsf/termbox-go"
-)
+import "github.com/nsf/termbox-go"
 
 func main() {
 
@@ -35,9 +31,30 @@ func main() {
 	var gc gameContainer
 	gc.draw()
 
-	time.Sleep(3 * time.Second)
+	readKey()
 
 	close()
+
+}
+
+func readKey() {
+
+loopyMcLoopface:
+	for {
+
+		switch e := termbox.PollEvent(); e.Type {
+
+		case termbox.EventKey:
+
+			if e.Key == termbox.KeyCtrlC {
+				break loopyMcLoopface
+			}
+
+		case termbox.EventError:
+			panic(e.Err)
+		}
+
+	}
 
 }
 
