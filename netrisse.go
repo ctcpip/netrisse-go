@@ -34,9 +34,10 @@ func main() {
 	gc.draw()
 
 	s = shapeI
-	s.draw()
+	//s.draw()
 
 	s = shapeJ
+	//s.rotate(false)
 	s.draw()
 
 	readKey()
@@ -80,10 +81,11 @@ func load() {
 
 }
 
-type point struct {
-	x, y int
-	char rune
-}
+// type point struct {
+// 	x, y int
+// }
+
+type point []int
 
 type shape struct {
 	color  termbox.Attribute
@@ -91,39 +93,62 @@ type shape struct {
 }
 
 const containerXOffset = 9
-const containerYOffset = 3
+const containerYOffset = 5 // s/b 2 - using 5 for testing
+
+func transpose(points []point) []point {
+
+	p := make([]point, len(points[0]))
+
+	for x := range p {
+		p[x] = make(point, len(points))
+	}
+
+	for y, a := range points {
+		for x, b := range a {
+			p[x][y] = b
+		}
+	}
+
+	return p
+
+}
+
+func reverseRows(points []point) {
+
+	for _, a := range points {
+
+		for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
+			a[i], a[j] = a[j], a[i]
+		}
+
+	}
+
+}
 
 func (s *shape) rotate(isLeft bool) {
 
 	if isLeft {
+		//s.points = reverseColumns(transpose(s.points))
+	} else {
+		s.points = transpose(s.points)
+		//reverseRows(s.points)
 	}
-
-	// for _, p := range s.points {
-	//
-	// 	termbox.SetCell(p.x+containerXOffset, p.y+containerYOffset, p.char, termbox.ColorBlack, s.color)
-	//
-	// }
 
 }
 
 func (s *shape) draw() {
 
-	var currContainerYOffset int
-	isIShape := s.color == termbox.ColorBlue // hacky but avoids the need for another property or having to do additional processing
-
-	if isIShape {
-		currContainerYOffset = containerYOffset
-	} else {
-		currContainerYOffset = containerYOffset - 1
-	}
+	var currOGX int
 
 	for _, p := range s.points {
 
-		p.x = p.x + containerXOffset
-		p.y = p.y + currContainerYOffset
+		currOGX = p[0]
+		p[0] = p[0] + containerXOffset
+		p[1] = p[1] + containerYOffset
 
-		if p.y > 2 {
-			termbox.SetCell(p.x, p.y, p.char, termbox.ColorBlack, s.color)
+		if p[1] > 2 {
+			termbox.SetCell(p[0]+currOGX, p[1], '[', termbox.ColorBlack, s.color)
+			termbox.SetCell(p[0]+currOGX+1, p[1], ']', termbox.ColorBlack, s.color)
 		}
 
 	}
@@ -135,33 +160,19 @@ func (s *shape) draw() {
 var shapeI = shape{
 	termbox.ColorBlue,
 	[]point{
-		{0, 0, '['},
-		{1, 0, ']'},
-		{2, 0, '['},
-		{3, 0, ']'},
-		{4, 0, '['},
-		{5, 0, ']'},
-		{6, 0, '['},
-		{7, 0, ']'}}}
+		{0, 1},
+		{1, 1},
+		{2, 1},
+		{3, 1}}}
 
 var shapeJ = shape{
 	termbox.ColorYellow,
 	[]point{
-		{0, 0, '['},
-		{1, 0, ']'},
-		{2, 0, '['},
-		{3, 0, ']'},
-		{4, 0, '['},
-		{5, 0, ']'},
-		{4, 1, '['},
-		{5, 1, ']'}}}
+		{0, 0},
+		{1, 0},
+		{2, 0},
+		{2, 1}}}
 
-// var shapeJ = shape{[]point{
-// 	{0, 0},
-// 	{1, 0},
-// 	{2, 0},
-// 	{2, 1}}}
-//
 // var shapeL = shape{[]point{
 // 	{0, 0},
 // 	{1, 0},
