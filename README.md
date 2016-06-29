@@ -4,9 +4,9 @@ a network version of tetris for the console/terminal
 ### roadmap
 1. single player mode
 2. two-player networked mode
-3. three-player networked mode †
+3. three-player networked mode\*
 
- † maybe
+ \*maybe
 
 ### inspiration
 I started this project in order to teach myself [Go](http://golang.org). __Code reviews are most welcome.__ Please let me know what could be done better!
