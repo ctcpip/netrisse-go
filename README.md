@@ -6,7 +6,7 @@ a network version of tetris for the console/terminal
 2. two-player networked mode
 3. three-player networked mode<sup>†</sup>
 
- <sup>†</sup>† maybe  
+ <sup>†</sup>maybe  
  <!-- †† -->
 
 ### inspiration
