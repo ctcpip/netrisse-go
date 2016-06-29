@@ -143,8 +143,8 @@ func (s *shape) draw() {
 	for _, p := range s.points {
 
 		currOGX = p[0]
-		p[0] = p[0] + containerXOffset
-		p[1] = p[1] + containerYOffset
+		p[0] += containerXOffset
+		p[1] += containerYOffset
 
 		if p[1] > 2 {
 			termbox.SetCell(p[0]+currOGX, p[1], '[', termbox.ColorBlack, s.color)
