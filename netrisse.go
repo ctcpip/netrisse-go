@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package main
 
 import "github.com/nsf/termbox-go"
+import "fmt"
 
 func main() {
 
@@ -34,15 +35,39 @@ func main() {
 	gc.draw()
 
 	s = shapeI
-	//s.draw()
-
-	s = shapeJ
-	//s.rotate(false)
 	s.draw()
+
+	// s = shapeJ
+	// s.rotate(true)
+	// s.draw()N
+
+	// ---------- BEGIN MATRIX TRANSFORMATION INFO
+
+	// printMatrix(s.points)
+	// s.rotate(true)
+	// fmt.Println("")
+	// printMatrix(s.points)
+	//
+	// s.rotate(false)
+	// fmt.Println("")
+	// printMatrix(s.points)
+	// s.rotate(false)
+	// fmt.Println("")
+	// printMatrix(s.points)
+
+	// ---------- END MATRIX TRANSFORMATION INFO
 
 	readKey()
 
 	close()
+
+}
+
+func printMatrix(points []point) {
+
+	for _, p := range points {
+		fmt.Println(p)
+	}
 
 }
 
@@ -80,10 +105,6 @@ func load() {
 	termbox.Flush()
 
 }
-
-// type point struct {
-// 	x, y int
-// }
 
 type point []int
 
@@ -125,13 +146,32 @@ func reverseRows(points []point) {
 
 }
 
+func reverseColumns(points []point) {
+
+	var intCurr int
+
+	for col := 0; col < len(points[0]); col++ {
+
+		for row := 0; row < len(points)/2; row++ {
+
+			intCurr = points[row][col]
+			points[row][col] = points[len(points)-row-1][col]
+			points[len(points)-row-1][col] = intCurr
+
+		}
+
+	}
+
+}
+
 func (s *shape) rotate(isLeft bool) {
 
+	s.points = transpose(s.points)
+
 	if isLeft {
-		//s.points = reverseColumns(transpose(s.points))
+		reverseColumns(s.points)
 	} else {
-		s.points = transpose(s.points)
-		//reverseRows(s.points)
+		reverseRows(s.points)
 	}
 
 }
@@ -140,15 +180,21 @@ func (s *shape) draw() {
 
 	var currOGX int
 
-	for _, p := range s.points {
+	for rowNum, row := range s.points {
 
-		currOGX = p[0]
-		p[0] += containerXOffset
-		p[1] += containerYOffset
+		for colNum, col := range row {
 
-		if p[1] > 2 {
-			termbox.SetCell(p[0]+currOGX, p[1], '[', termbox.ColorBlack, s.color)
-			termbox.SetCell(p[0]+currOGX+1, p[1], ']', termbox.ColorBlack, s.color)
+			if col > 0 {
+
+				currOGX = colNum
+
+				if rowNum > 0 {
+					termbox.SetCell(colNum+currOGX+containerXOffset, containerYOffset, '[', termbox.ColorBlack, s.color)
+					termbox.SetCell(colNum+currOGX+containerXOffset+1, containerYOffset, ']', termbox.ColorBlack, s.color)
+				}
+
+			}
+
 		}
 
 	}
@@ -160,18 +206,14 @@ func (s *shape) draw() {
 var shapeI = shape{
 	termbox.ColorBlue,
 	[]point{
-		{0, 1},
-		{1, 1},
-		{2, 1},
-		{3, 1}}}
+		{0, 0, 0, 0},
+		{1, 1, 1, 1}}}
 
 var shapeJ = shape{
 	termbox.ColorYellow,
 	[]point{
-		{0, 0},
-		{1, 0},
-		{2, 0},
-		{2, 1}}}
+		{1, 1, 1},
+		{0, 0, 1}}}
 
 // var shapeL = shape{[]point{
 // 	{0, 0},
