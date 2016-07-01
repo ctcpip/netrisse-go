@@ -28,6 +28,8 @@ type shape struct {
 	color    termbox.Attribute
 	points   []point
 	position []point
+	xOffset  int
+	yOffset  int
 }
 
 func (s *shape) rotate(isLeft bool) {
@@ -46,11 +48,12 @@ func (s *shape) move() {
 
 	for _, p := range s.position {
 		p[1]++
+		s.yOffset++
 	}
 
 }
 
-func (s *shape) setInitialPosition() {
+func (s *shape) setPosition() {
 
 	position := make([]point, 0, 4)
 
@@ -59,7 +62,7 @@ func (s *shape) setInitialPosition() {
 		for colNum, col := range row {
 
 			if col > 0 {
-				position = append(position, []int{colNum + colNum + containerXOffset, rowNum + containerYOffset})
+				position = append(position, []int{colNum + colNum + s.xOffset, rowNum + s.yOffset})
 			}
 
 		}
@@ -103,7 +106,6 @@ func (s *shape) draw() {
 var shapeI = shape{
 	color: termbox.ColorBlue,
 	points: []point{
-		{0, 0, 0, 0},
 		{1, 1, 1, 1}}}
 
 var shapeJ = shape{
