@@ -22,16 +22,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-func main() {
+import "github.com/nsf/termbox-go"
 
-	var a app
-	var g game
-	var k keyboard
+func writeText(text string, startX, y int) {
 
-	a.init()
-	// TODO - in init(), parse command line args
-	go g.start()
-	k.read()
-	a.close()
+	currX := startX
+
+	for i := 0; i < len(text); i++ {
+		termbox.SetCell(currX, y, rune(text[i]), termbox.ColorDefault, termbox.ColorDefault)
+		currX++
+	}
 
 }

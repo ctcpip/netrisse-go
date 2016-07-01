@@ -22,16 +22,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-func main() {
+import "time"
 
-	var a app
-	var g game
-	var k keyboard
+type game struct {
+	interval float64
+}
 
-	a.init()
-	// TODO - in init(), parse command line args
-	go g.start()
-	k.read()
-	a.close()
+func (g *game) start() {
+
+	var s shape
+	var b board
+
+	b.draw()
+
+	s = shapeL
+	s.setInitialPosition()
+	s.draw()
+
+	if g.interval <= 0 {
+		g.interval = .5
+	}
+
+	for {
+		time.Sleep(time.Duration(int(g.interval*1000)) * time.Millisecond)
+		s.erase()
+		s.move()
+		s.draw()
+	}
 
 }

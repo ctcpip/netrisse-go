@@ -22,16 +22,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-func main() {
+import "github.com/nsf/termbox-go"
 
-	var a app
-	var g game
-	var k keyboard
+type point []int
 
-	a.init()
-	// TODO - in init(), parse command line args
-	go g.start()
-	k.read()
-	a.close()
+const containerXOffset = 9
+const containerYOffset = 2
+
+type board struct{}
+
+func (b *board) draw() {
+
+	//top
+	writeText("+--------------------+", 0, 2)
+
+	//left
+	for i := 3; i < 23; i++ {
+		termbox.SetCell(0, i, '|', termbox.ColorDefault, termbox.ColorDefault)
+	}
+
+	//right
+	for i := 3; i < 23; i++ {
+		termbox.SetCell(21, i, '|', termbox.ColorDefault, termbox.ColorDefault)
+	}
+
+	//bottom
+	writeText("+--------------------+", 0, 23)
+
+	termbox.Flush()
 
 }

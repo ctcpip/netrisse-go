@@ -22,16 +22,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-func main() {
+import "fmt"
 
-	var a app
-	var g game
-	var k keyboard
+func printMatrix(points []point) {
 
-	a.init()
-	// TODO - in init(), parse command line args
-	go g.start()
-	k.read()
-	a.close()
+	for _, p := range points {
+		fmt.Println(p)
+	}
+
+}
+
+func testSomeStuff() {
+
+	var s shape
+	s = shapeJ
+	s.rotate(true)
+	s.draw()
+
+	// ---------- BEGIN MATRIX TRANSFORMATION INFO
+
+	printMatrix(s.points)
+	s.rotate(true)
+	fmt.Println("")
+	printMatrix(s.points)
+
+	s.rotate(false)
+	fmt.Println("")
+	printMatrix(s.points)
+	s.rotate(false)
+	fmt.Println("")
+	printMatrix(s.points)
+
+	// ---------- END MATRIX TRANSFORMATION INFO
 
 }

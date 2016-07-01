@@ -22,16 +22,50 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-func main() {
+func transpose(points []point) []point {
 
-	var a app
-	var g game
-	var k keyboard
+	p := make([]point, len(points[0]))
 
-	a.init()
-	// TODO - in init(), parse command line args
-	go g.start()
-	k.read()
-	a.close()
+	for x := range p {
+		p[x] = make(point, len(points))
+	}
+
+	for y, a := range points {
+		for x, b := range a {
+			p[x][y] = b
+		}
+	}
+
+	return p
+
+}
+
+func reverseRows(points []point) {
+
+	for _, a := range points {
+
+		for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
+			a[i], a[j] = a[j], a[i]
+		}
+
+	}
+
+}
+
+func reverseColumns(points []point) {
+
+	var intCurr int
+
+	for col := 0; col < len(points[0]); col++ {
+
+		for row := 0; row < len(points)/2; row++ {
+
+			intCurr = points[row][col]
+			points[row][col] = points[len(points)-row-1][col]
+			points[len(points)-row-1][col] = intCurr
+
+		}
+
+	}
 
 }

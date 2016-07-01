@@ -22,16 +22,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-func main() {
+import "github.com/nsf/termbox-go"
 
-	var a app
-	var g game
-	var k keyboard
+type app struct{}
 
-	a.init()
-	// TODO - in init(), parse command line args
-	go g.start()
-	k.read()
-	a.close()
+func (a *app) init() {
+
+	err := termbox.Init()
+
+	if err != nil {
+		panic(err)
+	}
+
+	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
+	writeText("netrisse 0.1.0 (C) 2016  Chris de Almeida     \"netrisse -h\" for more info", 0, 0)
+	termbox.Flush()
 
 }
+
+func (a *app) close() { defer termbox.Close() }
