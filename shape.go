@@ -33,7 +33,6 @@ type points []point
 func (pts points) toString() string {
 
 	var b bytes.Buffer
-	var b bytes.Buffer
 
 	b.WriteString("\n")
 
