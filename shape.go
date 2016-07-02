@@ -31,17 +31,55 @@ type shape struct {
 	centerPosition []int
 	xOffset        int
 	yOffset        int
+	toggle         bool
 }
 
-func (s *shape) rotate(isLeft bool) {
+func (s *shape) rotate(isLeft bool) bool {
 
-	s.points = transpose(s.points)
+	booContinue := true
 
-	if isLeft {
-		reverseColumns(s.points)
-	} else {
-		reverseRows(s.points)
+	switch s.color {
+	case termbox.ColorMagenta: // O shape cannot rotate
+		booContinue = false
+	case termbox.ColorBlue: // shape I can only toggle betwixt 2 rotated views
+
+		if s.toggle {
+			isLeft = true
+		} else {
+			isLeft = false
+		}
+
+		s.toggle = !s.toggle
+
+	case termbox.ColorGreen, termbox.ColorRed: // shapes S and Z can only toggle betwixt 2 rotated views, and the center/pivot block changes
+
+		if s.toggle {
+			isLeft = true
+			s.points[0][1] = 3
+			s.points[1][1] = 1
+		} else {
+			isLeft = false
+			s.points[0][1] = 1
+			s.points[1][1] = 3
+		}
+		printMatrix(s.points)
+		s.toggle = !s.toggle
+
 	}
+
+	if booContinue {
+
+		s.points = transpose(s.points)
+
+		if isLeft {
+			reverseColumns(s.points)
+		} else {
+			reverseRows(s.points)
+		}
+
+	}
+
+	return booContinue
 
 }
 
@@ -79,7 +117,7 @@ loopyMcLoopface:
 					} else if !(s.centerPosition[0] == currCoords[0] && s.centerPosition[1] == currCoords[1]) {
 						// shape rotation caused the center/pivot block to move out of position
 						// fix offsets and start over!
-						//fmt.Print("s.centerPosition: " s.centerPosition[1])
+
 						if s.centerPosition[1] < currCoords[1] {
 							s.yOffset -= currCoords[1] - s.centerPosition[1]
 						} else {

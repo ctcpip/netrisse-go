@@ -35,7 +35,7 @@ func (g *game) start() {
 
 	b.draw()
 
-	s = shapeL
+	s = shapeS
 	s.xOffset = containerXOffset
 	s.yOffset = containerYOffset
 	s.setPosition()
@@ -53,12 +53,16 @@ func (g *game) start() {
 	}
 
 	for {
+
 		time.Sleep(time.Duration(int(g.interval*1000)) * time.Millisecond)
+
 		s.erase()
-		//s.move()
-		s.rotate(true)
-		s.setPosition()
-		s.draw()
+
+		if s.rotate(true) {
+			s.setPosition()
+			s.draw()
+		}
+
 	}
 
 }
