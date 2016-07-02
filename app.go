@@ -22,7 +22,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-import "github.com/nsf/termbox-go"
+import (
+	"log"
+	"os"
+
+	"github.com/nsf/termbox-go"
+)
+
+var logger = log.New(os.Stderr, "", log.Lshortfile)
 
 type app struct{}
 

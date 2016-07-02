@@ -22,13 +22,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-import "github.com/nsf/termbox-go"
+import (
+	"bytes"
+
+	"github.com/nsf/termbox-go"
+)
+
+type points []point
+
+func (pts points) toString() string {
+
+	var b bytes.Buffer
+	var b bytes.Buffer
+
+	b.WriteString("\n")
+
+	for i, p := range pts {
+
+		b.WriteString(p.toString())
+
+		if i < len(pts)-1 {
+			b.WriteString("\n")
+		}
+
+	}
+
+	return b.String()
+
+}
 
 type shape struct {
 	color          termbox.Attribute
-	points         []point
-	position       []point
-	centerPosition []int
+	shapePoints    points
+	position       points
+	centerPosition point
 	xOffset        int
 	yOffset        int
 	toggle         bool
@@ -55,26 +82,28 @@ func (s *shape) rotate(isLeft bool) bool {
 
 		if s.toggle {
 			isLeft = true
-			s.points[0][1] = 3
-			s.points[1][1] = 1
+			s.shapePoints[0][1] = 3
+			s.shapePoints[1][1] = 1
 		} else {
 			isLeft = false
-			s.points[0][1] = 1
-			s.points[1][1] = 3
+			s.shapePoints[0][1] = 1
+			s.shapePoints[1][1] = 3
 		}
-		printMatrix(s.points)
+
+		logger.Print(s.shapePoints.toString())
+
 		s.toggle = !s.toggle
 
 	}
 
 	if booContinue {
 
-		s.points = transpose(s.points)
+		s.shapePoints = transpose(s.shapePoints)
 
 		if isLeft {
-			reverseColumns(s.points)
+			reverseColumns(s.shapePoints)
 		} else {
-			reverseRows(s.points)
+			reverseRows(s.shapePoints)
 		}
 
 	}
@@ -97,17 +126,17 @@ func (s *shape) move() {
 func (s *shape) setPosition() {
 
 	var booStartOver bool
-	var currCoords []int
-	position := make([]point, 0, 4)
+	var currCoords point
+	position := make(points, 0, 4)
 
 loopyMcLoopface:
-	for rowNum, row := range s.points {
+	for rowNum, row := range s.shapePoints {
 
 		for colNum, col := range row {
 
 			if col > 0 {
 
-				currCoords = []int{colNum + colNum + s.xOffset, rowNum + s.yOffset}
+				currCoords = point{colNum + colNum + s.xOffset, rowNum + s.yOffset}
 				position = append(position, currCoords)
 
 				if col == 3 { // check if current block is the center/pivot block
@@ -183,41 +212,41 @@ func (s *shape) draw() {
 
 var shapeI = shape{
 	color: termbox.ColorBlue,
-	points: []point{
+	shapePoints: points{
 		{1, 3, 1, 1}}}
 
 var shapeJ = shape{
 	color: termbox.ColorYellow,
-	points: []point{
+	shapePoints: points{
 		{1, 3, 1},
 		{0, 0, 1}}}
 
 var shapeL = shape{
 	color: termbox.ColorCyan,
-	points: []point{
+	shapePoints: points{
 		{1, 3, 1},
 		{1, 0, 0}}}
 
 var shapeO = shape{
 	color: termbox.ColorMagenta,
-	points: []point{
+	shapePoints: points{
 		{1, 1},
 		{1, 1}}}
 
 var shapeS = shape{
 	color: termbox.ColorGreen,
-	points: []point{
+	shapePoints: points{
 		{0, 3, 1},
 		{1, 1, 0}}}
 
 var shapeT = shape{
 	color: termbox.ColorWhite,
-	points: []point{
+	shapePoints: points{
 		{1, 3, 1},
 		{0, 1, 0}}}
 
 var shapeZ = shape{
 	color: termbox.ColorRed,
-	points: []point{
+	shapePoints: points{
 		{1, 3, 0},
 		{0, 1, 1}}}

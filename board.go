@@ -22,12 +22,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-import "github.com/nsf/termbox-go"
+import (
+	"bytes"
+	"strconv"
 
-type point []int
+	"github.com/nsf/termbox-go"
+)
 
 const containerXOffset = 9
 const containerYOffset = 2
+
+type point []int
+
+func (p point) toString() string {
+
+	var b bytes.Buffer
+
+	b.WriteString("{ ")
+
+	for _, x := range p {
+		b.WriteString(strconv.Itoa(x))
+		b.WriteString(" ")
+	}
+
+	b.WriteString("}")
+
+	return b.String()
+
+}
 
 type board struct{}
 

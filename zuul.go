@@ -24,7 +24,7 @@ package main
 
 import "fmt"
 
-func printMatrix(points []point) {
+func printMatrix(points points) {
 
 	for _, p := range points {
 		fmt.Println(p)
@@ -41,17 +41,17 @@ func testSomeStuff() {
 
 	// ---------- BEGIN MATRIX TRANSFORMATION INFO
 
-	printMatrix(s.points)
+	printMatrix(s.shapePoints)
 	s.rotate(true)
 	fmt.Println("")
-	printMatrix(s.points)
+	printMatrix(s.shapePoints)
 
 	s.rotate(false)
 	fmt.Println("")
-	printMatrix(s.points)
+	printMatrix(s.shapePoints)
 	s.rotate(false)
 	fmt.Println("")
-	printMatrix(s.points)
+	printMatrix(s.shapePoints)
 
 	// ---------- END MATRIX TRANSFORMATION INFO
 
