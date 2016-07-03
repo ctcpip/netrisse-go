@@ -29,8 +29,7 @@ import (
 	"github.com/nsf/termbox-go"
 )
 
-const containerXOffset = 9
-const containerYOffset = 2
+const initialXOffset = 9
 
 type point []int
 
@@ -51,12 +50,14 @@ func (p point) toString() string {
 
 }
 
-type board struct{}
+type board struct {
+	top, right, bottom, left int
+}
 
 func (b *board) draw() {
 
 	//top
-	writeText("+--------------------+", 0, 2)
+	writeText("+--------------------+", b.left, b.top)
 
 	//left
 	for i := 3; i < 23; i++ {
@@ -69,7 +70,7 @@ func (b *board) draw() {
 	}
 
 	//bottom
-	writeText("+--------------------+", 0, 23)
+	writeText("+--------------------+", b.left, b.bottom)
 
 	termbox.Flush()
 

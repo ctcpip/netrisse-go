@@ -31,13 +31,13 @@ type game struct {
 func (g *game) start() {
 
 	var s shape
-	var b board
+	b := board{2, 0, 23, 0}
 
 	b.draw()
 
 	s = shapeT
-	s.xOffset = containerXOffset
-	s.yOffset = containerYOffset
+	s.xOffset = b.left + initialXOffset
+	s.yOffset = b.top
 	s.setPosition()
 
 	if g.interval <= 0 {
