@@ -35,18 +35,10 @@ func (g *game) start() {
 
 	b.draw()
 
-	s = shapeS
+	s = shapeT
 	s.xOffset = containerXOffset
 	s.yOffset = containerYOffset
 	s.setPosition()
-	s.draw()
-
-	//testing
-	s.erase()
-	s.move()
-	s.erase()
-	s.move()
-	s.erase()
 
 	if g.interval <= 0 {
 		g.interval = 1
@@ -54,13 +46,23 @@ func (g *game) start() {
 
 	for {
 
+		//logger.Print(s.position.toString())
+		s.draw()
+
 		time.Sleep(time.Duration(int(g.interval*1000)) * time.Millisecond)
 
 		s.erase()
+		s.move()
+		//logger.Print(s.position.toString())
+		s.setPosition()
+		s.draw()
+		//logger.Print(s.position.toString())
 
 		if s.rotate(true) {
+			time.Sleep(time.Duration(int(g.interval*1000)) * time.Millisecond)
+			s.erase()
 			s.setPosition()
-			s.draw()
+
 		}
 
 	}

@@ -74,7 +74,7 @@ func (s *shape) rotate(isLeft bool) bool {
 
 	case termbox.ColorGreen, termbox.ColorRed: // shapes S and Z can only toggle betwixt 2 rotated views, and the center/pivot block changes
 
-		logger.Print(s.shapePoints.toString())
+		//logger.Print(s.shapePoints.toString())
 
 		if s.toggle {
 			isLeft = s.color == termbox.ColorRed // shapes S and Z perform opposite rotations
@@ -86,7 +86,7 @@ func (s *shape) rotate(isLeft bool) bool {
 			s.shapePoints[1][1] = 1
 		}
 
-		logger.Print(s.shapePoints.toString())
+		//logger.Print(s.shapePoints.toString())
 
 		s.toggle = !s.toggle
 
@@ -110,9 +110,9 @@ func (s *shape) rotate(isLeft bool) bool {
 
 func (s *shape) move() {
 
-	for _, p := range s.position {
-		p[1]++
-	}
+	// for _, p := range s.position {
+	// 	p[1]++
+	// }
 
 	s.yOffset++
 	s.centerPosition[1]++
@@ -226,7 +226,7 @@ var shapeL = shape{
 var shapeO = shape{
 	color: termbox.ColorMagenta,
 	shapePoints: points{
-		{1, 1},
+		{3, 1},
 		{1, 1}}}
 
 var shapeS = shape{
