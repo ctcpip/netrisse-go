@@ -2,7 +2,7 @@
 
 a network version of tetris for the console/terminal
 
-![Development Status](https://img.shields.io/badge/Development%20Status-Pre--Alpha-red.svg)
+![Development Status](https://img.shields.io/badge/development%20status-pre--alpha-red.svg)
 [![Code Climate](https://codeclimate.com/github/ctcpip/netrisse/badges/gpa.svg)](https://codeclimate.com/github/ctcpip/netrisse)
 [![Issue Count](https://codeclimate.com/github/ctcpip/netrisse/badges/issue_count.svg)](https://codeclimate.com/github/ctcpip/netrisse)
 
