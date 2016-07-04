@@ -7,9 +7,9 @@ a network version of tetris for the console/terminal
 3. three-player networked mode (...maybe)
 
 ### inspiration
-I started this project in order to teach myself [Go](http://golang.org). __Code reviews are most welcome.__ Please let me know what could be done better!
+I started this project in order to teach myself __[Go](http://golang.org)__. __code reviews are most welcome.__ please let me know what could be done better!
 
-netrisse is a clone of [netris](https://web.archive.org/web/20070215202226/http://portsmon.freebsd.org/portoverview.py?category=games&portname=netris), itself a clone of tetris.
+netrisse is a clone of __[netris](https://web.archive.org/web/20070215202226/http://portsmon.freebsd.org/portoverview.py?category=games&portname=netris)__, itself a clone of tetris. as such, the gameplay might contain some variations in regard to your expectations.
 
 ### stuff nobody cares about
 this project uses...
