@@ -38,8 +38,8 @@ func (g *game) start() {
 
 	s = shapeT
 	s.board = g.board
-	s.xOffset = g.board.left + initialXOffset
-	s.yOffset = g.board.top
+	s.xOffset = 5 //g.board.left + initialXOffset
+	s.yOffset = 5 //g.board.top
 	s.setPosition()
 	//logger.Print(s.position.toString())
 

@@ -24,11 +24,25 @@ package main
 
 import (
 	"bytes"
+	"sort"
+	"strconv"
 
 	"github.com/nsf/termbox-go"
 )
 
 type points []point
+
+func (pts points) Len() int {
+	return len(pts)
+}
+
+func (pts points) Less(i, j int) bool {
+	return pts[i][0] < pts[j][0] // points are sorted on x coord
+}
+
+func (pts points) Swap(i, j int) {
+	pts[i], pts[j] = pts[j], pts[i]
+}
 
 func (pts points) toString() string {
 
@@ -133,7 +147,7 @@ loopyMcLoopface:
 
 			if col > 0 {
 
-				currCoords = point{colNum + colNum + s.xOffset, rowNum + s.yOffset}
+				currCoords = point{colNum + s.xOffset, rowNum + s.yOffset}
 				position = append(position, currCoords)
 
 				if col == 3 { // check if current block is the center/pivot block
@@ -160,7 +174,7 @@ loopyMcLoopface:
 						break loopyMcLoopface
 
 					}
-
+					logger.Print("center x: " + strconv.Itoa(currCoords[0]))
 				}
 
 			}
@@ -172,33 +186,47 @@ loopyMcLoopface:
 	if booStartOver {
 		s.setPosition()
 	} else {
+		sort.Sort(position)
 		s.position = position
 	}
 
 }
 
-func (s *shape) erase() {
+func (s *shape) erase() { drawShape(s, true) }
+func (s *shape) draw()  { drawShape(s, false) }
 
-	for _, p := range s.position {
+func drawShape(s *shape, erase bool) {
 
-		if p[1] > s.board.top {
-			termbox.SetCell(p[0], p[1], ' ', termbox.ColorDefault, termbox.ColorDefault)
-			termbox.SetCell(p[0]+1, p[1], ' ', termbox.ColorDefault, termbox.ColorDefault)
-		}
+	var fg, bg termbox.Attribute
+	var r1, r2 rune
+	var currCols, x, y int
+	cols := map[int]int{}
 
+	if erase {
+		fg, bg = termbox.ColorDefault, termbox.ColorDefault
+		r1, r2 = ' ', ' '
+	} else {
+		fg, bg = termbox.ColorBlack, s.color
+		r1, r2 = '[', ']'
 	}
 
-	termbox.Flush()
-
-}
-
-func (s *shape) draw() {
-
 	for _, p := range s.position {
 
+		if _, set := cols[p[0]]; !set {
+			cols[p[0]] = currCols
+			currCols++
+		}
+
 		if p[1] > s.board.top {
-			termbox.SetCell(p[0], p[1], '[', termbox.ColorBlack, s.color)
-			termbox.SetCell(p[0]+1, p[1], ']', termbox.ColorBlack, s.color)
+
+			logger.Print(strconv.Itoa(p[0]) + " = " + strconv.Itoa(cols[p[0]]))
+			logger.Print("drawing: " + strconv.Itoa(p[0]+cols[p[0]]) + " & " + strconv.Itoa(p[0]+cols[p[0]]+1))
+			x = p[0] + cols[p[0]]
+			y = p[1]
+
+			termbox.SetCell(x, y, r1, fg, bg)
+			termbox.SetCell(x+1, y, r2, fg, bg)
+
 		}
 
 	}
