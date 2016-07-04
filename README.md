@@ -1,6 +1,9 @@
 # netrisse
 a network version of tetris for the console/terminal
 
+## state of the project
+__netrisse is in heavy development and not yet ready for end users__
+
 ### roadmap
 1. single player mode
 2. two-player networked mode
