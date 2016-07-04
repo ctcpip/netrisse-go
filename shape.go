@@ -51,6 +51,7 @@ func (pts points) toString() string {
 }
 
 type shape struct {
+	board          board
 	color          termbox.Attribute
 	shapePoints    points
 	position       points
@@ -180,7 +181,7 @@ func (s *shape) erase() {
 
 	for _, p := range s.position {
 
-		if p[1] > 2 {
+		if p[1] > s.board.top {
 			termbox.SetCell(p[0], p[1], ' ', termbox.ColorDefault, termbox.ColorDefault)
 			termbox.SetCell(p[0]+1, p[1], ' ', termbox.ColorDefault, termbox.ColorDefault)
 		}
@@ -195,7 +196,7 @@ func (s *shape) draw() {
 
 	for _, p := range s.position {
 
-		if p[1] > 2 {
+		if p[1] > s.board.top {
 			termbox.SetCell(p[0], p[1], '[', termbox.ColorBlack, s.color)
 			termbox.SetCell(p[0]+1, p[1], ']', termbox.ColorBlack, s.color)
 		}

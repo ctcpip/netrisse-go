@@ -26,19 +26,22 @@ import "time"
 
 type game struct {
 	interval float64
+	board    board
 }
 
 func (g *game) start() {
 
 	var s shape
-	b := board{2, 0, 23, 0}
 
-	b.draw()
+	g.board = board{2, 21, 23, 0}
+	g.board.draw()
 
 	s = shapeT
-	s.xOffset = b.left + initialXOffset
-	s.yOffset = b.top
+	s.board = g.board
+	s.xOffset = g.board.left + initialXOffset
+	s.yOffset = g.board.top
 	s.setPosition()
+	//logger.Print(s.position.toString())
 
 	if g.interval <= 0 {
 		g.interval = 1
@@ -46,23 +49,21 @@ func (g *game) start() {
 
 	for {
 
-		//logger.Print(s.position.toString())
 		s.draw()
 
 		time.Sleep(time.Duration(int(g.interval*1000)) * time.Millisecond)
 
 		s.erase()
 		s.move()
-		//logger.Print(s.position.toString())
 		s.setPosition()
-		s.draw()
 		//logger.Print(s.position.toString())
+		s.draw()
 
 		if s.rotate(true) {
 			time.Sleep(time.Duration(int(g.interval*1000)) * time.Millisecond)
 			s.erase()
 			s.setPosition()
-
+			//logger.Print(s.position.toString())
 		}
 
 	}
