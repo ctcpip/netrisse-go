@@ -3,8 +3,8 @@
 a network version of tetris for the console/terminal
 
 ![Development Status](https://img.shields.io/badge/development%20status-pre--alpha-red.svg)
-[![Code Climate](https://codeclimate.com/github/ctcpip/netrisse/badges/gpa.svg)](https://codeclimate.com/github/ctcpip/netrisse)
-[![Issue Count](https://codeclimate.com/github/ctcpip/netrisse/badges/issue_count.svg)](https://codeclimate.com/github/ctcpip/netrisse)
+[![Code Climate](https://img.shields.io/codeclimate/github/ctcpip/netrisse.svg)](https://codeclimate.com/github/ctcpip/netrisse)
+[![Issue Count](https://img.shields.io/codeclimate/issues/github/ctcpip/netrisse.svg)](https://codeclimate.com/github/ctcpip/netrisse)
 [![License](https://img.shields.io/badge/license-GNU%20GPLv3-blue.svg)](./LICENSE)
 
 ## netrisse is in heavy development and not yet ready for end users
