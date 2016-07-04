@@ -2,6 +2,7 @@
 a network version of tetris for the console/terminal
 
 [![Code Climate](https://codeclimate.com/github/ctcpip/netrisse/badges/gpa.svg)](https://codeclimate.com/github/ctcpip/netrisse)
+[![Issue Count](https://codeclimate.com/github/ctcpip/netrisse/badges/issue_count.svg)](https://codeclimate.com/github/ctcpip/netrisse)
 
 ## state of the project
 __netrisse is in heavy development and not yet ready for end users__
