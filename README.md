@@ -11,9 +11,9 @@ a network version of tetris for the console/terminal
 
 ### roadmap
 
-1. single player mode
-1. two-player networked mode
-1. three-player networked mode (...maybe)
+1. ![single player mode](https://img.shields.io/badge/single%20player%20mode-in%20progress-yellow.svg)
+1. ![two-player networked mode](https://img.shields.io/badge/two--player%20networked%20mode-backlog-lightgrey.svg)
+1. ![three/four player networked mode](https://img.shields.io/badge/three%2Ffour--player%20networked%20mode-backlog-lightgrey.svg)
 
 ### inspiration
 
