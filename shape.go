@@ -31,6 +31,24 @@ import (
 
 type points []point
 
+func (pts points) maxY() int {
+
+	var currY, maxY int
+
+	for _, p := range pts {
+
+		currY = p[1]
+
+		if currY > maxY {
+			maxY = currY
+		}
+
+	}
+
+	return maxY
+
+}
+
 func (pts points) Len() int {
 	return len(pts)
 }
@@ -122,14 +140,20 @@ func (s *shape) rotate(isLeft bool) bool {
 
 }
 
-func (s *shape) move() {
+func (s *shape) move() bool {
 
-	// for _, p := range s.position {
-	// 	p[1]++
-	// }
+	booReturn := true
+	destinationY := s.position.maxY() + 1
 
-	s.yOffset++
-	s.centerPosition[1]++
+	//check if we can move down
+	if destinationY < s.board.bottom {
+		s.yOffset = destinationY
+		s.centerPosition[1]++
+	} else {
+		booReturn = false
+	}
+
+	return booReturn
 
 }
 
@@ -237,6 +261,8 @@ func drawShape(s *shape, erase bool) {
 	termbox.Flush()
 
 }
+
+var shapes = []shape{shapeI, shapeJ, shapeL, shapeO, shapeS, shapeT, shapeZ}
 
 var shapeI = shape{
 	color: termbox.ColorBlue,

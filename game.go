@@ -22,7 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-import "time"
+import (
+	"math/rand"
+	"time"
+)
 
 type game struct {
 	interval float64
@@ -32,41 +35,50 @@ type game struct {
 func (g *game) start() {
 
 	var s shape
+	getNewShape := true
 
-	g.board = board{2, 21, 23, 0}
+	g.board = board{top: 2, right: 21, bottom: 23, left: 0}
 	g.board.draw()
 
-	s = shapeT
-	s.board = g.board
-	s.xOffset = 5 //g.board.left + initialXOffset
-	s.yOffset = 5 //g.board.top
-	s.setPosition()
-	//logger.Print(s.position.toString())
+	rand.Seed(time.Now().Unix())
 
 	if g.interval <= 0 {
-		g.interval = 1
+		g.interval = .1
 	}
 
 	for {
 
-		s.draw()
+		time.Sleep(time.Duration(int(g.interval*1000)) * time.Millisecond)
 
-		time.Sleep(time.Duration(int(g.interval*500)) * time.Millisecond)
+		if getNewShape {
+			getNewShape = false
+			s = shapes[rand.Intn(6)]
+			s.board = g.board
+			s.xOffset = g.board.left + initialXOffset
+			s.yOffset = g.board.top - 1
+		}
 
-		s.erase()
-		s.move()
 		s.setPosition()
-		//logger.Print(s.position.toString())
+
 		s.draw()
 
-		if s.rotate(true) {
-			time.Sleep(time.Duration(int(g.interval*500)) * time.Millisecond)
+		if s.move() {
 			s.erase()
 			s.setPosition()
-			//logger.Print(s.position.toString())
-			//s.draw()
-			//break
+			s.draw()
+		} else {
+			g.board.occupied = append(g.board.occupied, s.position...)
+			getNewShape = true
+			//lock piece and get a new piece
 		}
+
+		// if s.rotate(true) {
+		// 	time.Sleep(time.Duration(int(g.interval*500)) * time.Millisecond)
+		// 	s.erase()
+		// 	s.setPosition()
+		// 	//s.draw()
+		// 	//break
+		// }
 
 	}
 

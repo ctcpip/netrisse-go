@@ -52,6 +52,7 @@ func (p point) toString() string {
 
 type board struct {
 	top, right, bottom, left int
+	occupied                 points
 }
 
 func (b *board) draw() {
