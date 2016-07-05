@@ -51,7 +51,7 @@ func (g *game) start() {
 
 		s.draw()
 
-		time.Sleep(time.Duration(int(g.interval*1000)) * time.Millisecond)
+		time.Sleep(time.Duration(int(g.interval*500)) * time.Millisecond)
 
 		s.erase()
 		s.move()
@@ -60,10 +60,12 @@ func (g *game) start() {
 		s.draw()
 
 		if s.rotate(true) {
-			time.Sleep(time.Duration(int(g.interval*1000)) * time.Millisecond)
+			time.Sleep(time.Duration(int(g.interval*500)) * time.Millisecond)
 			s.erase()
 			s.setPosition()
 			//logger.Print(s.position.toString())
+			//s.draw()
+			//break
 		}
 
 	}

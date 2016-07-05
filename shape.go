@@ -25,7 +25,6 @@ package main
 import (
 	"bytes"
 	"sort"
-	"strconv"
 
 	"github.com/nsf/termbox-go"
 )
@@ -174,7 +173,7 @@ loopyMcLoopface:
 						break loopyMcLoopface
 
 					}
-					logger.Print("center x: " + strconv.Itoa(currCoords[0]))
+					//logger.Print("center: " + strconv.Itoa(currCoords[0]) + " , " + strconv.Itoa(currCoords[1]))
 				}
 
 			}
@@ -199,8 +198,9 @@ func drawShape(s *shape, erase bool) {
 
 	var fg, bg termbox.Attribute
 	var r1, r2 rune
-	var currCols, x, y int
-	cols := map[int]int{}
+	var x, y, centerX, currX int
+
+	centerX = s.centerPosition[0]
 
 	if erase {
 		fg, bg = termbox.ColorDefault, termbox.ColorDefault
@@ -210,18 +210,21 @@ func drawShape(s *shape, erase bool) {
 		r1, r2 = '[', ']'
 	}
 
-	for _, p := range s.position {
+	// if !erase {
+	// 	logger.Print(s.position.toString())
+	// }
 
-		if _, set := cols[p[0]]; !set {
-			cols[p[0]] = currCols
-			currCols++
-		}
+	for _, p := range s.position {
 
 		if p[1] > s.board.top {
 
-			logger.Print(strconv.Itoa(p[0]) + " = " + strconv.Itoa(cols[p[0]]))
-			logger.Print("drawing: " + strconv.Itoa(p[0]+cols[p[0]]) + " & " + strconv.Itoa(p[0]+cols[p[0]]+1))
-			x = p[0] + cols[p[0]]
+			// if !erase {
+			// 	logger.Print("col adjust: " + strconv.Itoa(p[0]) + " = " + strconv.Itoa(cols[p[0]]))
+			// 	logger.Print("drawing:    " + strconv.Itoa(p[0]+cols[p[0]]) + " & " + strconv.Itoa(p[0]+cols[p[0]]+1))
+			// }
+
+			currX = p[0]
+			x = currX - (centerX - currX)
 			y = p[1]
 
 			termbox.SetCell(x, y, r1, fg, bg)
