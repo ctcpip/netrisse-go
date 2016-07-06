@@ -9,7 +9,7 @@ a network version of tetris for the console/terminal
 
 ## netrisse is in heavy development and not yet ready for end users
 
-![netrisse](https://cloud.githubusercontent.com/assets/15326526/16576261/8ccf6a8e-4253-11e6-92da-4731e8107454.gif)
+![netrisse](https://cloud.githubusercontent.com/assets/15326526/16607516/608a6bfe-4307-11e6-8fed-e1ef35b066b3.gif)
 
 ### roadmap
 
