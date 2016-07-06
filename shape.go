@@ -140,20 +140,48 @@ func (s *shape) rotate(isLeft bool) bool {
 
 }
 
-func (s *shape) move() bool {
+func (s shape) move() bool {
 
-	booReturn := true
+	sNew := s
+	booContinue := true
 	destinationY := s.position.maxY() + 1
 
 	//check if we can move down
 	if destinationY < s.board.bottom {
-		s.yOffset = destinationY
-		s.centerPosition[1]++
+		sNew.yOffset = destinationY
+		sNew.centerPosition[1]++
 	} else {
-		booReturn = false
+		booContinue = false
 	}
 
-	return booReturn
+	if booContinue {
+
+		sNew.setPosition()
+
+	loopyMcLoopface:
+		for _, bp := range s.board.occupied {
+
+			for _, sp := range sNew.position {
+
+				if bp[0] == sp[0] && bp[1] == sp[1] {
+					booContinue = false
+					break loopyMcLoopface
+				}
+
+			}
+
+		}
+
+	}
+
+	if booContinue {
+		s.erase()
+		s = sNew
+		s.draw()
+		termbox.Flush()
+	}
+
+	return booContinue
 
 }
 
@@ -257,8 +285,6 @@ func drawShape(s *shape, erase bool) {
 		}
 
 	}
-
-	termbox.Flush()
 
 }
 

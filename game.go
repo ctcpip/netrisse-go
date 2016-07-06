@@ -25,6 +25,8 @@ package main
 import (
 	"math/rand"
 	"time"
+
+	"github.com/nsf/termbox-go"
 )
 
 type game struct {
@@ -43,7 +45,7 @@ func (g *game) start() {
 	rand.Seed(time.Now().Unix())
 
 	if g.interval <= 0 {
-		g.interval = .1
+		g.interval = .05
 	}
 
 	for {
@@ -59,17 +61,12 @@ func (g *game) start() {
 		}
 
 		s.setPosition()
-
 		s.draw()
+		termbox.Flush()
 
-		if s.move() {
-			s.erase()
-			s.setPosition()
-			s.draw()
-		} else {
+		if !s.move() {
 			g.board.occupied = append(g.board.occupied, s.position...)
 			getNewShape = true
-			//lock piece and get a new piece
 		}
 
 		// if s.rotate(true) {
