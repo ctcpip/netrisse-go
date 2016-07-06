@@ -25,8 +25,6 @@ package main
 import (
 	"math/rand"
 	"time"
-
-	"github.com/nsf/termbox-go"
 )
 
 type game struct {
@@ -58,11 +56,8 @@ func (g *game) start() {
 			s.board = g.board
 			s.xOffset = g.board.left + initialXOffset
 			s.yOffset = g.board.top - 1
+			s.setPosition()
 		}
-
-		s.setPosition()
-		s.draw()
-		termbox.Flush()
 
 		if !s.move() {
 			g.board.occupied = append(g.board.occupied, s.position...)

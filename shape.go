@@ -140,9 +140,9 @@ func (s *shape) rotate(isLeft bool) bool {
 
 }
 
-func (s shape) move() bool {
+func (s *shape) move() bool {
 
-	sNew := s
+	sNew := *s
 	booContinue := true
 	destinationY := s.position.maxY() + 1
 
@@ -173,10 +173,9 @@ func (s shape) move() bool {
 		}
 
 	}
-
 	if booContinue {
 		s.erase()
-		s = sNew
+		*s = sNew
 		s.draw()
 		termbox.Flush()
 	}
