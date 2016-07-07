@@ -27,6 +27,8 @@ import (
 	"time"
 )
 
+var s shape
+
 type game struct {
 	interval float64
 	board    board
@@ -34,7 +36,6 @@ type game struct {
 
 func (g *game) start() {
 
-	var s shape
 	getNewShape := true
 
 	g.board = board{top: 2, right: 21, bottom: 23, left: 0}
@@ -43,7 +44,7 @@ func (g *game) start() {
 	rand.Seed(time.Now().Unix())
 
 	if g.interval <= 0 {
-		g.interval = .05
+		g.interval = .5
 	}
 
 	for {
@@ -59,17 +60,9 @@ func (g *game) start() {
 			s.setPosition()
 		}
 
-		if !s.move() {
+		if !s.move(DOWN) {
 			getNewShape = true
 		}
-
-		// if s.rotate(true) {
-		// 	time.Sleep(time.Duration(int(g.interval*500)) * time.Millisecond)
-		// 	s.erase()
-		// 	s.setPosition()
-		// 	//s.draw()
-		// 	//break
-		// }
 
 	}
 

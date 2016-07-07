@@ -140,10 +140,26 @@ func (s *shape) rotate(isLeft bool) bool {
 
 }
 
-func (s *shape) move() bool {
+type direction int
+
+const (
+	// RIGHT move shape right
+	RIGHT direction = iota
+	//DOWN move shape down
+	DOWN
+	// LEFT move shape left
+	LEFT
+)
+
+func (s *shape) move(d direction) bool {
 
 	sNew := *s
 	booContinue := true
+
+	switch d {
+	case DOWN:
+	}
+
 	destinationY := s.position.maxY() + 1
 
 	//check if we can move down

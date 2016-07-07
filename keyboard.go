@@ -24,7 +24,7 @@ package main
 
 import "github.com/nsf/termbox-go"
 
-type keyboard struct{}
+type keyboard struct{ keyDrop, keyRight, keyDown, keyLeft, keyRotateLeft rune }
 
 func (k *keyboard) read() {
 
@@ -35,8 +35,26 @@ loopyMcLoopface:
 
 		case termbox.EventKey:
 
-			if e.Key == termbox.KeyCtrlC {
+			switch {
+			case e.Key == termbox.KeyCtrlC:
 				break loopyMcLoopface
+			case e.Ch == k.keyDrop:
+				return
+			case e.Ch == k.keyRight:
+				s.move(RIGHT)
+			case e.Ch == k.keyDown:
+				s.move(DOWN)
+			case e.Ch == k.keyLeft:
+				s.move(LEFT)
+			case e.Ch == k.keyRotateLeft:
+
+				if s.rotate(true) {
+					s.erase()
+					s.setPosition()
+					s.draw()
+					termbox.Flush()
+				}
+
 			}
 
 		case termbox.EventError:

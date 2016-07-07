@@ -26,7 +26,8 @@ func main() {
 
 	var a app
 	var g game
-	var k keyboard
+
+	k := keyboard{' ', 'l', 'm', 'j', 'k'}
 
 	a.init()
 	// TODO - in init(), parse command line args
