@@ -53,14 +53,13 @@ func (g *game) start() {
 		if getNewShape {
 			getNewShape = false
 			s = shapes[rand.Intn(6)]
-			s.board = g.board
+			s.board = &g.board
 			s.xOffset = g.board.left + initialXOffset
 			s.yOffset = g.board.top - 1
 			s.setPosition()
 		}
 
 		if !s.move() {
-			g.board.occupied = append(g.board.occupied, s.position...)
 			getNewShape = true
 		}
 

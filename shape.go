@@ -82,7 +82,7 @@ func (pts points) toString() string {
 }
 
 type shape struct {
-	board          board
+	board          *board
 	color          termbox.Attribute
 	shapePoints    points
 	position       points
@@ -173,11 +173,14 @@ func (s *shape) move() bool {
 		}
 
 	}
+
 	if booContinue {
 		s.erase()
 		*s = sNew
 		s.draw()
 		termbox.Flush()
+	} else {
+		s.board.occupied = append(s.board.occupied, s.position...)
 	}
 
 	return booContinue
