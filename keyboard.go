@@ -61,6 +61,8 @@ loopyMcLoopface:
 						termbox.Flush()
 					}
 
+					//g.timer.Reset(g.interval)
+
 				}
 
 			}

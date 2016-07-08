@@ -200,11 +200,11 @@ func (s *shape) move(d direction) bool {
 
 	case RIGHT:
 
-		destinationX := s.position.maxX() + 1
+		destinationX := s.position.maxX() + 2
 
 		if destinationX < s.board.right-2 {
 			sNew.xOffset = destinationX
-			sNew.centerPosition[0]++
+			sNew.centerPosition[0] = sNew.centerPosition[0] + 2
 		}
 
 	}
