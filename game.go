@@ -74,7 +74,7 @@ func getNewShape() {
 	s = shapes[rand.Intn(6)]
 	s.board = &g.board
 	s.xOffset = g.board.left + initialXOffset
-	s.yOffset = g.board.top - 1
+	s.yOffset = g.board.top + initialYOffset
 	s.setPosition()
 
 }
