@@ -30,8 +30,9 @@ import (
 var s shape
 
 type game struct {
-	interval float64
+	interval time.Duration
 	board    board
+	timer    *time.Timer
 }
 
 func (g *game) start() {
@@ -44,12 +45,13 @@ func (g *game) start() {
 	rand.Seed(time.Now().Unix())
 
 	if g.interval <= 0 {
-		g.interval = .5
+		g.interval = time.Duration(int(.5*1000)) * time.Millisecond
 	}
 
 	for {
 
-		time.Sleep(time.Duration(int(g.interval*1000)) * time.Millisecond)
+		g.timer = time.NewTimer(g.interval)
+		<-g.timer.C
 
 		if getNewShape {
 			getNewShape = false

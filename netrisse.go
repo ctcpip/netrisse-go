@@ -22,10 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
+var g game
+
 func main() {
 
 	var a app
-	var g game
 
 	k := keyboard{' ', 'l', 'm', 'j', 'k'}
 

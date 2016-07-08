@@ -44,6 +44,7 @@ loopyMcLoopface:
 				s.move(RIGHT)
 			case e.Ch == k.keyDown:
 				s.move(DOWN)
+				g.timer.Reset(g.interval)
 			case e.Ch == k.keyLeft:
 				s.move(LEFT)
 			case e.Ch == k.keyRotateLeft:
