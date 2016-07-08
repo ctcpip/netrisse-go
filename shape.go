@@ -328,7 +328,7 @@ var shapeL = shape{
 var shapeO = shape{
 	color: termbox.ColorMagenta,
 	shapePoints: points{
-		{3, 1},
+		{1, 3},
 		{1, 1}}}
 
 var shapeS = shape{
