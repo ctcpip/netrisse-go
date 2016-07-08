@@ -37,7 +37,7 @@ type game struct {
 
 func (g *game) start() {
 
-	getNewShape := true
+	booGetNewShape := true
 
 	g.board = board{top: 2, right: 21, bottom: 23, left: 0}
 	g.board.draw()
@@ -48,24 +48,33 @@ func (g *game) start() {
 		g.interval = time.Duration(int(.5*1000)) * time.Millisecond
 	}
 
+	getNewShape()
+	k.enabled = true
+
 	for {
 
 		g.timer = time.NewTimer(g.interval)
 		<-g.timer.C
 
-		if getNewShape {
-			getNewShape = false
-			s = shapes[rand.Intn(6)]
-			s.board = &g.board
-			s.xOffset = g.board.left + initialXOffset
-			s.yOffset = g.board.top - 1
-			s.setPosition()
+		if booGetNewShape {
+			booGetNewShape = false
+			getNewShape()
 		}
 
 		if !s.move(DOWN) {
-			getNewShape = true
+			booGetNewShape = true
 		}
 
 	}
+
+}
+
+func getNewShape() {
+
+	s = shapes[rand.Intn(6)]
+	s.board = &g.board
+	s.xOffset = g.board.left + initialXOffset
+	s.yOffset = g.board.top - 1
+	s.setPosition()
 
 }

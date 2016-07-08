@@ -23,12 +23,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package main
 
 var g game
+var k keyboard
 
 func main() {
 
 	var a app
 
-	k := keyboard{' ', 'l', 'm', 'j', 'k'}
+	k = keyboard{
+		keyDrop:       ' ',
+		keyRight:      'l',
+		keyDown:       'm',
+		keyLeft:       'j',
+		keyRotateLeft: 'k'}
 
 	a.init()
 	// TODO - in init(), parse command line args

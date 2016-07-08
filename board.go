@@ -61,13 +61,13 @@ func (b *board) draw() {
 	writeText("+--------------------+", b.left, b.top)
 
 	//left
-	for i := 3; i < 23; i++ {
-		termbox.SetCell(0, i, '|', termbox.ColorDefault, termbox.ColorDefault)
+	for i := b.top + 1; i < b.bottom; i++ {
+		termbox.SetCell(b.left, i, '|', termbox.ColorDefault, termbox.ColorDefault)
 	}
 
 	//right
-	for i := 3; i < 23; i++ {
-		termbox.SetCell(21, i, '|', termbox.ColorDefault, termbox.ColorDefault)
+	for i := b.top + 1; i < b.bottom; i++ {
+		termbox.SetCell(b.right, i, '|', termbox.ColorDefault, termbox.ColorDefault)
 	}
 
 	//bottom

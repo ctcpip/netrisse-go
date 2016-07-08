@@ -32,20 +32,48 @@ import (
 type points []point
 
 func (pts points) maxY() int {
+	return getLimit(pts, true, false)
+}
 
-	var currY, maxY int
+func (pts points) maxX() int {
+	return getLimit(pts, true, true)
+}
+
+func (pts points) minX() int {
+	return getLimit(pts, false, true)
+}
+
+func getLimit(pts points, isMax bool, isX bool) int {
+
+	var currX, maxX, i int
+
+	if isX {
+		i = 0
+	} else {
+		i = 1
+	}
 
 	for _, p := range pts {
 
-		currY = p[1]
+		currX = p[i]
 
-		if currY > maxY {
-			maxY = currY
+		if isMax {
+
+			if currX > maxX {
+				maxX = currX
+			}
+
+		} else {
+
+			if currX < maxX {
+				maxX = currX
+			}
+
 		}
 
 	}
 
-	return maxY
+	return maxX
 
 }
 
@@ -158,16 +186,27 @@ func (s *shape) move(d direction) bool {
 
 	switch d {
 	case DOWN:
-	}
 
-	destinationY := s.position.maxY() + 1
+		destinationY := s.position.maxY() + 1
 
-	//check if we can move down
-	if destinationY < s.board.bottom {
-		sNew.yOffset = destinationY
-		sNew.centerPosition[1]++
-	} else {
-		booContinue = false
+		if destinationY < s.board.bottom {
+			sNew.yOffset = destinationY
+			sNew.centerPosition[1]++
+		} else {
+			booContinue = false
+		}
+
+	case LEFT:
+
+	case RIGHT:
+
+		destinationX := s.position.maxX() + 1
+
+		if destinationX < s.board.right-2 {
+			sNew.xOffset = destinationX
+			sNew.centerPosition[0]++
+		}
+
 	}
 
 	if booContinue {
