@@ -22,37 +22,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-import "fmt"
+import (
+	"log"
+	"os"
+)
 
-func printMatrix(points points) {
+const initialXOffset = 10
+const initialYOffset = -1
 
-	for _, p := range points {
-		fmt.Println(p)
-	}
-
-}
-
-func testSomeStuff() {
-
-	var s shape
-	s = shapeJ
-	s.rotate(true)
-	s.draw()
-
-	// ---------- BEGIN MATRIX TRANSFORMATION INFO
-
-	printMatrix(s.shapePoints)
-	s.rotate(true)
-	fmt.Println("")
-	printMatrix(s.shapePoints)
-
-	s.rotate(false)
-	fmt.Println("")
-	printMatrix(s.shapePoints)
-	s.rotate(false)
-	fmt.Println("")
-	printMatrix(s.shapePoints)
-
-	// ---------- END MATRIX TRANSFORMATION INFO
-
-}
+var logger = log.New(os.Stderr, "", log.Lshortfile)
+var g game
+var k keyboard
+var s shape
+var scr screen

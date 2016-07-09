@@ -27,8 +27,6 @@ import (
 	"time"
 )
 
-var s shape
-
 type game struct {
 	interval time.Duration
 	board    board
@@ -64,13 +62,4 @@ func (g *game) start() {
 
 	}
 
-}
-
-func getNewShape() {
-	s = copyShape(&shapes[rand.Intn(6)])
-	s.board = &g.board
-	s.xOffset = g.board.left + initialXOffset
-	s.yOffset = g.board.top + initialYOffset
-	s.setPosition()
-	s.movable = true
 }

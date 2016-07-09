@@ -24,7 +24,23 @@ package main
 
 import "github.com/nsf/termbox-go"
 
-func writeText(text string, startX, y int) {
+type screen struct{}
+
+func (s *screen) init() {
+
+	err := termbox.Init()
+
+	if err != nil {
+		panic(err)
+	}
+
+	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
+	s.writeText("netrisse 0.1.0 (C) 2016  Chris de Almeida     \"netrisse -h\" for more info", 0, 0)
+	termbox.Flush()
+
+}
+
+func (s *screen) writeText(text string, startX, y int) {
 
 	currX := startX
 

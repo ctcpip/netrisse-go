@@ -22,31 +22,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-import "github.com/nsf/termbox-go"
+type direction int
 
-type board struct {
-	top, right, bottom, left int
-	occupied                 points
-}
-
-func (b *board) draw() {
-
-	//top
-	scr.writeText("+--------------------+", b.left, b.top)
-
-	//left
-	for i := b.top + 1; i < b.bottom; i++ {
-		termbox.SetCell(b.left, i, '|', termbox.ColorDefault, termbox.ColorDefault)
-	}
-
-	//right
-	for i := b.top + 1; i < b.bottom; i++ {
-		termbox.SetCell(b.right, i, '|', termbox.ColorDefault, termbox.ColorDefault)
-	}
-
-	//bottom
-	scr.writeText("+--------------------+", b.left, b.bottom)
-
-	termbox.Flush()
-
-}
+const (
+	// RIGHT move shape right
+	RIGHT direction = iota
+	//DOWN move shape down
+	DOWN
+	// LEFT move shape left
+	LEFT
+)

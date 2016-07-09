@@ -26,6 +26,19 @@ import "github.com/nsf/termbox-go"
 
 type keyboard struct{ keyDrop, keyRight, keyDown, keyLeft, keyRotateLeft rune }
 
+func (k *keyboard) init() {
+
+	k = &keyboard{
+		keyDrop:       ' ',
+		keyRight:      'l',
+		keyDown:       'm',
+		keyLeft:       'j',
+		keyRotateLeft: 'k'}
+
+	k.read()
+
+}
+
 func (k *keyboard) read() {
 
 loopyMcLoopface:

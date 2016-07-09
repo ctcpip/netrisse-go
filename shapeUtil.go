@@ -22,6 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
+import "math/rand"
+
 func transpose(shapePoints points) points {
 
 	p := make(points, len(shapePoints[0]))
@@ -101,4 +103,13 @@ func copyShape(s *shape) shape {
 
 	return sNew
 
+}
+
+func getNewShape() {
+	s = copyShape(&shapes[rand.Intn(6)])
+	s.board = &g.board
+	s.xOffset = g.board.left + initialXOffset
+	s.yOffset = g.board.top + initialYOffset
+	s.setPosition()
+	s.movable = true
 }

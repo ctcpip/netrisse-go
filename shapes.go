@@ -24,29 +24,45 @@ package main
 
 import "github.com/nsf/termbox-go"
 
-type board struct {
-	top, right, bottom, left int
-	occupied                 points
-}
+var shapes = []shape{shapeI, shapeJ, shapeL, shapeO, shapeS, shapeT, shapeZ}
 
-func (b *board) draw() {
+var shapeI = shape{
+	color: termbox.ColorBlue,
+	shapePoints: points{
+		{1, 3, 1, 1}}}
 
-	//top
-	scr.writeText("+--------------------+", b.left, b.top)
+var shapeJ = shape{
+	color: termbox.ColorYellow,
+	shapePoints: points{
+		{1, 3, 1},
+		{0, 0, 1}}}
 
-	//left
-	for i := b.top + 1; i < b.bottom; i++ {
-		termbox.SetCell(b.left, i, '|', termbox.ColorDefault, termbox.ColorDefault)
-	}
+var shapeL = shape{
+	color: termbox.ColorCyan,
+	shapePoints: points{
+		{1, 3, 1},
+		{1, 0, 0}}}
 
-	//right
-	for i := b.top + 1; i < b.bottom; i++ {
-		termbox.SetCell(b.right, i, '|', termbox.ColorDefault, termbox.ColorDefault)
-	}
+var shapeO = shape{
+	color: termbox.ColorMagenta,
+	shapePoints: points{
+		{1, 3},
+		{1, 1}}}
 
-	//bottom
-	scr.writeText("+--------------------+", b.left, b.bottom)
+var shapeS = shape{
+	color: termbox.ColorGreen,
+	shapePoints: points{
+		{0, 1, 1},
+		{1, 3, 0}}}
 
-	termbox.Flush()
+var shapeT = shape{
+	color: termbox.ColorWhite,
+	shapePoints: points{
+		{1, 3, 1},
+		{0, 1, 0}}}
 
-}
+var shapeZ = shape{
+	color: termbox.ColorRed,
+	shapePoints: points{
+		{1, 1, 0},
+		{0, 3, 1}}}

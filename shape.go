@@ -23,95 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package main
 
 import (
-	"bytes"
 	"sort"
 
 	"github.com/nsf/termbox-go"
 )
-
-type points []point
-
-func (pts points) maxY() int {
-	return getLimit(pts, true, false)
-}
-
-func (pts points) maxX() int {
-	return getLimit(pts, true, true)
-}
-
-func (pts points) minX() int {
-	return getLimit(pts, false, true)
-}
-
-func getLimit(pts points, isMax bool, isX bool) int {
-
-	var currX, maxX, i int
-
-	if isX {
-		i = 0
-	} else {
-		i = 1
-	}
-
-	if !isMax {
-		maxX = 33 // set initial value for minX, otherwise will never be less than 0
-	}
-
-	for _, p := range pts {
-
-		currX = p[i]
-
-		if isMax {
-
-			if currX > maxX {
-				maxX = currX
-			}
-
-		} else {
-
-			if currX < maxX {
-				maxX = currX
-			}
-
-		}
-
-	}
-
-	return maxX
-
-}
-
-func (pts points) Len() int {
-	return len(pts)
-}
-
-func (pts points) Less(i, j int) bool {
-	return pts[i][0] < pts[j][0] // points are sorted on x coord
-}
-
-func (pts points) Swap(i, j int) {
-	pts[i], pts[j] = pts[j], pts[i]
-}
-
-func (pts points) toString() string {
-
-	var b bytes.Buffer
-
-	b.WriteString("\n")
-
-	for i, p := range pts {
-
-		b.WriteString(p.toString())
-
-		if i < len(pts)-1 {
-			b.WriteString("\n")
-		}
-
-	}
-
-	return b.String()
-
-}
 
 type shape struct {
 	board          *board
@@ -172,17 +87,6 @@ func (s *shape) rotate(isLeft bool) bool {
 	return booContinue
 
 }
-
-type direction int
-
-const (
-	// RIGHT move shape right
-	RIGHT direction = iota
-	//DOWN move shape down
-	DOWN
-	// LEFT move shape left
-	LEFT
-)
 
 func (s *shape) move(d direction) bool {
 
@@ -364,46 +268,3 @@ func drawShape(s *shape, erase bool) {
 	}
 
 }
-
-var shapes = []shape{shapeI, shapeJ, shapeL, shapeO, shapeS, shapeT, shapeZ}
-
-var shapeI = shape{
-	color: termbox.ColorBlue,
-	shapePoints: points{
-		{1, 3, 1, 1}}}
-
-var shapeJ = shape{
-	color: termbox.ColorYellow,
-	shapePoints: points{
-		{1, 3, 1},
-		{0, 0, 1}}}
-
-var shapeL = shape{
-	color: termbox.ColorCyan,
-	shapePoints: points{
-		{1, 3, 1},
-		{1, 0, 0}}}
-
-var shapeO = shape{
-	color: termbox.ColorMagenta,
-	shapePoints: points{
-		{1, 3},
-		{1, 1}}}
-
-var shapeS = shape{
-	color: termbox.ColorGreen,
-	shapePoints: points{
-		{0, 1, 1},
-		{1, 3, 0}}}
-
-var shapeT = shape{
-	color: termbox.ColorWhite,
-	shapePoints: points{
-		{1, 3, 1},
-		{0, 1, 0}}}
-
-var shapeZ = shape{
-	color: termbox.ColorRed,
-	shapePoints: points{
-		{1, 1, 0},
-		{0, 3, 1}}}

@@ -22,31 +22,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-import "github.com/nsf/termbox-go"
+import (
+	"bytes"
+	"strconv"
+)
 
-type board struct {
-	top, right, bottom, left int
-	occupied                 points
-}
+type point []int
 
-func (b *board) draw() {
+func (p point) toString() string {
 
-	//top
-	scr.writeText("+--------------------+", b.left, b.top)
+	var b bytes.Buffer
 
-	//left
-	for i := b.top + 1; i < b.bottom; i++ {
-		termbox.SetCell(b.left, i, '|', termbox.ColorDefault, termbox.ColorDefault)
+	b.WriteString("{ ")
+
+	for _, x := range p {
+		b.WriteString(strconv.Itoa(x))
+		b.WriteString(" ")
 	}
 
-	//right
-	for i := b.top + 1; i < b.bottom; i++ {
-		termbox.SetCell(b.right, i, '|', termbox.ColorDefault, termbox.ColorDefault)
-	}
+	b.WriteString("}")
 
-	//bottom
-	scr.writeText("+--------------------+", b.left, b.bottom)
-
-	termbox.Flush()
+	return b.String()
 
 }
