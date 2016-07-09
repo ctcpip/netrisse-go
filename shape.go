@@ -122,6 +122,7 @@ type shape struct {
 	xOffset        int
 	yOffset        int
 	toggle         bool
+	initialized    bool
 }
 
 func (s *shape) rotate(isLeft bool) bool {
@@ -185,37 +186,43 @@ const (
 
 func (s *shape) move(d direction) bool {
 
-	sNew := *s
-	booContinue := true
+	var sNew shape
+	booContinue := s.initialized
 
-	switch d {
-	case DOWN:
+	if booContinue {
 
-		destinationY := s.position.maxY() + 1
+		sNew = *s
 
-		if destinationY < s.board.bottom {
-			sNew.yOffset = destinationY
-			sNew.centerPosition[1]++
-		} else {
-			booContinue = false
-		}
+		switch d {
+		case DOWN:
 
-	case LEFT:
+			destinationY := s.position.maxY() + 1
 
-		destinationX := s.position.minX() - 1
+			if destinationY < s.board.bottom {
+				sNew.yOffset = destinationY
+				sNew.centerPosition[1]++
+			} else {
+				booContinue = false
+			}
 
-		if destinationX > s.board.left+1 {
-			sNew.xOffset = destinationX - 1
-			sNew.centerPosition[0] = sNew.centerPosition[0] - 2
-		}
+		case LEFT:
 
-	case RIGHT:
+			destinationX := s.position.minX() - 1
 
-		destinationX := s.position.maxX() + 1
+			if destinationX > s.board.left+1 {
+				sNew.xOffset = destinationX - 1
+				sNew.centerPosition[0] = sNew.centerPosition[0] - 2
+			}
 
-		if destinationX < s.board.right-2 {
-			sNew.xOffset = destinationX + 1
-			sNew.centerPosition[0] = sNew.centerPosition[0] + 2
+		case RIGHT:
+
+			destinationX := s.position.maxX() + 1
+
+			if destinationX < s.board.right-2 {
+				sNew.xOffset = destinationX + 1
+				sNew.centerPosition[0] = sNew.centerPosition[0] + 2
+			}
+
 		}
 
 	}

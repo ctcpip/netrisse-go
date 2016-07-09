@@ -49,7 +49,6 @@ func (g *game) start() {
 	}
 
 	getNewShape()
-	k.enabled = true
 
 	for {
 
@@ -76,5 +75,5 @@ func getNewShape() {
 	s.xOffset = g.board.left + initialXOffset
 	s.yOffset = g.board.top + initialYOffset
 	s.setPosition()
-
+	s.initialized = true
 }
