@@ -29,7 +29,7 @@ import (
 	"github.com/nsf/termbox-go"
 )
 
-const initialXOffset = 2
+const initialXOffset = 10
 const initialYOffset = -1
 
 type point []int
