@@ -54,9 +54,8 @@ loopyMcLoopface:
 					s.setPosition()
 					s.draw()
 					termbox.Flush()
+					//g.timer.Reset(g.interval)
 				}
-
-				//g.timer.Reset(g.interval)
 
 			}
 
