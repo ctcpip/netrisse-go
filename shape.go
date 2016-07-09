@@ -280,7 +280,7 @@ loopyMcLoopface:
 
 				if col == 3 { // check if current block is the center/pivot block
 
-					if s.centerPosition == nil {
+					if len(s.centerPosition) == 0 {
 						s.centerPosition = currCoords // one-time initial setting
 					} else if !(s.centerPosition[0] == currCoords[0] && s.centerPosition[1] == currCoords[1]) {
 						// shape rotation caused the center/pivot block to move out of position
