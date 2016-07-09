@@ -69,11 +69,12 @@ func (g *game) start() {
 }
 
 func getNewShape() {
-
+	//s = copyShape(&shapes[rand.Intn(6)])
 	s = shapes[rand.Intn(6)]
 	s.board = &g.board
 	s.xOffset = g.board.left + initialXOffset
 	s.yOffset = g.board.top + initialYOffset
+	//s.centerPosition = make(point, 2)
 	s.setPosition()
-	s.initialized = true
+	s.movable = true
 }

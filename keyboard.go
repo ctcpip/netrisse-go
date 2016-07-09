@@ -39,22 +39,42 @@ loopyMcLoopface:
 			case e.Key == termbox.KeyCtrlC:
 				break loopyMcLoopface
 			case e.Ch == k.keyDrop:
-				return
+
+				if s.movable {
+
+				}
+
 			case e.Ch == k.keyRight:
-				s.move(RIGHT)
+
+				if s.movable {
+					s.move(RIGHT)
+				}
+
 			case e.Ch == k.keyDown:
-				s.move(DOWN)
-				g.timer.Reset(g.interval)
+
+				logger.Print(s.movable)
+
+				if s.movable {
+					s.move(DOWN)
+					g.timer.Reset(g.interval)
+				}
+
 			case e.Ch == k.keyLeft:
-				s.move(LEFT)
+
+				if s.movable {
+					s.move(LEFT)
+				}
+
 			case e.Ch == k.keyRotateLeft:
 
-				if s.rotate(true) {
+				if s.movable && s.rotate(true) {
+
 					s.erase()
 					s.setPosition()
 					s.draw()
 					termbox.Flush()
 					//g.timer.Reset(g.interval)
+
 				}
 
 			}

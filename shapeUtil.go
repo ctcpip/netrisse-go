@@ -83,7 +83,7 @@ func copyShape(s *shape) shape {
 		xOffset:        s.xOffset,
 		yOffset:        s.yOffset,
 		toggle:         s.toggle,
-		initialized:    s.initialized}
+		movable:        s.movable}
 
 	for i, p := range s.shapePoints {
 		currP = make(point, len(p))

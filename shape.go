@@ -122,7 +122,7 @@ type shape struct {
 	xOffset        int
 	yOffset        int
 	toggle         bool
-	initialized    bool
+	movable        bool
 }
 
 func (s *shape) rotate(isLeft bool) bool {
@@ -187,7 +187,7 @@ const (
 func (s *shape) move(d direction) bool {
 
 	var sNew shape
-	booContinue := s.initialized
+	booContinue := true
 
 	if booContinue {
 
@@ -254,6 +254,7 @@ func (s *shape) move(d direction) bool {
 		s.draw()
 		termbox.Flush()
 	} else {
+		s.movable = false
 		s.board.occupied = append(s.board.occupied, s.position...)
 	}
 
