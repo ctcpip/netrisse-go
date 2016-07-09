@@ -184,6 +184,39 @@ const (
 	LEFT
 )
 
+func copyShape(s *shape) shape {
+
+	var currP point
+
+	sNew := shape{
+		board:          s.board,
+		color:          s.color,
+		shapePoints:    make([]point, len(s.shapePoints)),
+		position:       make([]point, len(s.position)),
+		centerPosition: make(point, len(s.centerPosition)),
+		xOffset:        s.xOffset,
+		yOffset:        s.yOffset,
+		toggle:         s.toggle,
+		initialized:    s.initialized}
+
+	for i, p := range s.shapePoints {
+		currP = make(point, len(p))
+		copy(currP, p)
+		sNew.shapePoints[i] = currP
+	}
+
+	for i, p := range s.position {
+		currP = make(point, len(p))
+		copy(currP, p)
+		sNew.position[i] = currP
+	}
+
+	copy(sNew.centerPosition, s.centerPosition)
+
+	return sNew
+
+}
+
 func (s *shape) move(d direction) bool {
 
 	var sNew shape
@@ -191,7 +224,7 @@ func (s *shape) move(d direction) bool {
 
 	if booContinue {
 
-		sNew = *s
+		sNew = copyShape(s)
 
 		switch d {
 		case DOWN:
