@@ -53,6 +53,10 @@ func getLimit(pts points, isMax bool, isX bool) int {
 		i = 1
 	}
 
+	if !isMax {
+		maxX = 33 // set initial value for minX, otherwise will never be less than 0
+	}
+
 	for _, p := range pts {
 
 		currX = p[i]
@@ -198,12 +202,19 @@ func (s *shape) move(d direction) bool {
 
 	case LEFT:
 
+		destinationX := s.position.minX() - 1
+
+		if destinationX > s.board.left+1 {
+			sNew.xOffset = destinationX - 1
+			sNew.centerPosition[0] = sNew.centerPosition[0] - 2
+		}
+
 	case RIGHT:
 
-		destinationX := s.position.maxX() + 2
+		destinationX := s.position.maxX() + 1
 
 		if destinationX < s.board.right-2 {
-			sNew.xOffset = destinationX
+			sNew.xOffset = destinationX + 1
 			sNew.centerPosition[0] = sNew.centerPosition[0] + 2
 		}
 
