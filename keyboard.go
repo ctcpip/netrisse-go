@@ -51,10 +51,10 @@ loopyMcLoopface:
 			switch {
 			case e.Key == termbox.KeyCtrlC:
 				break loopyMcLoopface
-			case e.Ch == k.keyDrop:
+			case e.Ch == k.keyDrop, e.Key == termbox.KeySpace:
 
-				if s.movable {
-
+				if s.movable && s.move(DROP) {
+					g.timer.Reset(g.interval)
 				}
 
 			case e.Ch == k.keyRight:
