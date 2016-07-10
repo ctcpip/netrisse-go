@@ -29,6 +29,7 @@ var shapes = []shape{shapeI, shapeJ, shapeL, shapeO, shapeS, shapeT, shapeZ}
 var shapeI = shape{
 	color: termbox.ColorBlue,
 	shapePoints: points{
+		{0, 0, 0, 0},
 		{1, 3, 1, 1}}}
 
 var shapeJ = shape{
