@@ -28,7 +28,7 @@ import (
 )
 
 const initialXOffset = 10
-const initialYOffset = -2
+const initialYOffset = -1
 
 var logger = log.New(os.Stderr, "", log.Lshortfile)
 var g game

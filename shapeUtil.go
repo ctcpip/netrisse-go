@@ -22,7 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-import "math/rand"
+import (
+	"math/rand"
+
+	"github.com/nsf/termbox-go"
+)
 
 func transpose(shapePoints points) points {
 
@@ -111,5 +115,7 @@ func getNewShape() {
 	s.xOffset = g.board.left + initialXOffset
 	s.yOffset = g.board.top + initialYOffset
 	s.setPosition()
+	s.draw()
+	termbox.Flush()
 	s.movable = true
 }
