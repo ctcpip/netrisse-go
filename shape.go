@@ -174,13 +174,16 @@ func (s *shape) move(d direction) bool {
 	}
 
 	if booContinue {
+
 		s.erase()
 		*s = sNew
 		s.draw()
 		termbox.Flush()
+
 	} else if booLock {
 		s.movable = false
 		s.board.occupied = append(s.board.occupied, s.position...)
+		g.timer.Reset(0)
 	}
 
 	return !booLock

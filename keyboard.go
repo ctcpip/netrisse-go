@@ -67,8 +67,7 @@ loopyMcLoopface:
 
 				//logger.Print(s.movable)
 
-				if s.movable {
-					s.move(DOWN)
+				if s.movable && s.move(DOWN) {
 					g.timer.Reset(g.interval)
 				}
 
@@ -81,8 +80,11 @@ loopyMcLoopface:
 			case e.Ch == k.keyRotateLeft:
 
 				if s.movable {
-					s.move(ROTATE)
-					//g.timer.Reset(g.interval)
+
+					if s.move(ROTATE) {
+						//g.timer.Reset(g.interval)
+					}
+
 				}
 
 			}

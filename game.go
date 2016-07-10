@@ -43,9 +43,6 @@ func (g *game) start() {
 
 	for {
 
-		g.timer = time.NewTimer(g.interval)
-		<-g.timer.C
-
 		if booGetNewShape {
 			booGetNewShape = false
 			getNewShape()
@@ -54,6 +51,9 @@ func (g *game) start() {
 		if !s.move(DOWN) {
 			booGetNewShape = true
 		}
+
+		g.timer = time.NewTimer(g.interval)
+		<-g.timer.C
 
 	}
 
