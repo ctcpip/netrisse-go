@@ -106,7 +106,7 @@ func copyShape(s *shape) shape {
 }
 
 func getNewShape() {
-	s = copyShape(&shapes[rand.Intn(6)])
+	s = copyShape(&shapes[rand.Intn(7)])
 	s.board = &g.board
 	s.xOffset = g.board.left + initialXOffset
 	s.yOffset = g.board.top + initialYOffset

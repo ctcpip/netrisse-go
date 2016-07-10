@@ -65,7 +65,7 @@ loopyMcLoopface:
 
 			case e.Ch == k.keyDown:
 
-				logger.Print(s.movable)
+				//logger.Print(s.movable)
 
 				if s.movable {
 					s.move(DOWN)
@@ -80,14 +80,9 @@ loopyMcLoopface:
 
 			case e.Ch == k.keyRotateLeft:
 
-				if s.movable && s.rotate(true) {
-
-					s.erase()
-					s.setPosition()
-					s.draw()
-					termbox.Flush()
+				if s.movable {
+					s.move(ROTATE)
 					//g.timer.Reset(g.interval)
-
 				}
 
 			}

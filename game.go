@@ -22,10 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-import (
-	"math/rand"
-	"time"
-)
+import "time"
 
 type game struct {
 	interval time.Duration
@@ -39,8 +36,6 @@ func (g *game) start() {
 
 	g.board = board{top: 2, right: 21, bottom: 23, left: 0}
 	g.board.draw()
-
-	rand.Seed(time.Now().Unix())
 
 	if g.interval <= 0 {
 		g.interval = time.Duration(int(.5*1000)) * time.Millisecond

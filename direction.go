@@ -25,10 +25,14 @@ package main
 type direction int
 
 const (
+	// DROP drop shape
+	DROP direction = iota
 	// RIGHT move shape right
-	RIGHT direction = iota
-	//DOWN move shape down
+	RIGHT
+	// DOWN move shape down
 	DOWN
 	// LEFT move shape left
 	LEFT
+	// ROTATE rotate shape
+	ROTATE
 )

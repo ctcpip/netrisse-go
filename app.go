@@ -22,13 +22,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-import "github.com/nsf/termbox-go"
+import (
+	"math/rand"
+	"time"
+
+	"github.com/nsf/termbox-go"
+)
 
 type app struct{}
 
 func (a *app) init() {
 
 	var k keyboard
+
+	rand.Seed(time.Now().Unix())
 
 	// TODO: parse command line args
 

@@ -90,51 +90,71 @@ func (s *shape) rotate(isLeft bool) bool {
 
 func (s *shape) move(d direction) bool {
 
-	var sNew shape
-	booContinue := true
+	booContinue, booLock := true, false
+	sNew := copyShape(s)
 
-	if booContinue {
+	switch d {
 
-		sNew = copyShape(s)
+	case DROP:
 
-		switch d {
+	case DOWN:
 
-		case DOWN:
+		destinationY := s.position.maxY() + 1
 
-			destinationY := s.position.maxY() + 1
+		if destinationY < s.board.bottom {
+			sNew.yOffset = destinationY
+			sNew.centerPosition[1]++
+		} else {
+			booContinue = false
+			booLock = true
+		}
 
-			if destinationY < s.board.bottom {
-				sNew.yOffset = destinationY
-				sNew.centerPosition[1]++
-			} else {
+	case LEFT:
+
+		destinationX := s.position.minX() - 1
+
+		if destinationX > s.board.left+1 {
+			sNew.xOffset = destinationX - 1
+			sNew.centerPosition[0] = sNew.centerPosition[0] - 2
+		} else {
+			booContinue = false
+		}
+
+	case RIGHT:
+
+		destinationX := s.position.maxX() + 1
+
+		if destinationX < s.board.right-2 {
+			sNew.xOffset = destinationX + 1
+			sNew.centerPosition[0] = sNew.centerPosition[0] + 2
+		} else {
+			booContinue = false
+		}
+
+	case ROTATE:
+
+		if sNew.rotate(true) {
+
+			sNew.setPosition()
+
+			if sNew.position.maxX() >= s.board.right-2 ||
+				sNew.position.minX() <= s.board.left+1 ||
+				sNew.position.maxY() >= s.board.bottom {
 				booContinue = false
 			}
 
-		case LEFT:
-
-			destinationX := s.position.minX() - 1
-
-			if destinationX > s.board.left+1 {
-				sNew.xOffset = destinationX - 1
-				sNew.centerPosition[0] = sNew.centerPosition[0] - 2
-			}
-
-		case RIGHT:
-
-			destinationX := s.position.maxX() + 1
-
-			if destinationX < s.board.right-2 {
-				sNew.xOffset = destinationX + 1
-				sNew.centerPosition[0] = sNew.centerPosition[0] + 2
-			}
-
+		} else {
+			booContinue = false
 		}
 
 	}
 
 	if booContinue {
 
-		sNew.setPosition()
+		if d != ROTATE {
+			// ROTATE already called setPosition() to check against board boundaries
+			sNew.setPosition()
+		}
 
 	loopyMcLoopface:
 		for _, bp := range s.board.occupied {
@@ -143,6 +163,7 @@ func (s *shape) move(d direction) bool {
 
 				if bp[0] == sp[0] && bp[1] == sp[1] {
 					booContinue = false
+					booLock = true
 					break loopyMcLoopface
 				}
 
@@ -157,12 +178,12 @@ func (s *shape) move(d direction) bool {
 		*s = sNew
 		s.draw()
 		termbox.Flush()
-	} else {
+	} else if booLock {
 		s.movable = false
 		s.board.occupied = append(s.board.occupied, s.position...)
 	}
 
-	return booContinue
+	return !booLock
 
 }
 
