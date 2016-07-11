@@ -27,7 +27,7 @@ import (
 	"os"
 )
 
-const initialXOffset = 10
+const initialXOffset = 5 //10
 const initialYOffset = -1
 
 var logger = log.New(os.Stderr, "", log.Lshortfile)

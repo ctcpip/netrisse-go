@@ -27,25 +27,26 @@ import "github.com/nsf/termbox-go"
 type board struct {
 	top, right, bottom, left int
 	occupied                 points
+	border                   dimensions
 }
 
 func (b *board) draw() {
 
 	//top
-	scr.writeText("+--------------------+", b.left, b.top)
+	scr.writeText("+--------------------+", b.border.left, b.border.top)
 
 	//left
-	for i := b.top + 1; i < b.bottom; i++ {
-		termbox.SetCell(b.left, i, '|', termbox.ColorDefault, termbox.ColorDefault)
+	for i := b.border.top + 1; i < b.border.bottom; i++ {
+		termbox.SetCell(b.border.left, i, '|', termbox.ColorDefault, termbox.ColorDefault)
 	}
 
 	//right
-	for i := b.top + 1; i < b.bottom; i++ {
-		termbox.SetCell(b.right, i, '|', termbox.ColorDefault, termbox.ColorDefault)
+	for i := b.border.top + 1; i < b.border.bottom; i++ {
+		termbox.SetCell(b.border.right, i, '|', termbox.ColorDefault, termbox.ColorDefault)
 	}
 
 	//bottom
-	scr.writeText("+--------------------+", b.left, b.bottom)
+	scr.writeText("+--------------------+", b.border.left, b.border.bottom)
 
 	termbox.Flush()
 

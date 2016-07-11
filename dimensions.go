@@ -22,41 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
-import "time"
-
-type game struct {
-	interval time.Duration
-	board    board
-	timer    *time.Timer
-}
-
-func (g *game) start() {
-
-	booGetNewShape := true
-
-	g.board = board{
-		top: 2, right: 10, bottom: 23, left: 1,
-		border: dimensions{top: 2, right: 21, bottom: 23, left: 0}}
-	g.board.draw()
-
-	if g.interval <= 0 {
-		g.interval = time.Duration(int(.5*1000)) * time.Millisecond
-	}
-
-	for {
-
-		if booGetNewShape {
-			booGetNewShape = false
-			getNewShape()
-		}
-
-		if !s.move(DOWN) {
-			booGetNewShape = true
-		}
-
-		g.timer = time.NewTimer(g.interval)
-		<-g.timer.C
-
-	}
-
+type dimensions struct {
+	top, right, bottom, left int
 }
