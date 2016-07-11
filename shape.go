@@ -98,8 +98,14 @@ func (s *shape) move(d direction) bool {
 		destinationY := s.position.maxY() + 1
 
 		if destinationY < s.board.bottom {
+
 			sNew.yOffset = destinationY
 			sNew.centerPosition[1]++
+
+			if destinationY == s.board.bottom-1 {
+				booLock = true
+			}
+
 		} else {
 			booContinue = false
 			booLock = true
@@ -170,13 +176,13 @@ func (s *shape) move(d direction) bool {
 	}
 
 	if booContinue {
-
 		s.erase()
 		*s = sNew
 		s.draw()
 		termbox.Flush()
+	}
 
-	} else if booLock {
+	if booLock {
 		s.movable = false
 		s.board.occupied = append(s.board.occupied, s.position...)
 		g.timer.Reset(0)
