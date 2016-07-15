@@ -25,8 +25,6 @@ package main
 import (
 	"math/rand"
 	"time"
-
-	"github.com/nsf/termbox-go"
 )
 
 type app struct{}
@@ -42,8 +40,7 @@ func (a *app) init() {
 	scr.init()
 	go g.start()
 	k.init()
-	a.close()
 
 }
 
-func (a *app) close() { defer termbox.Close() }
+func (a *app) close() { scr.close() }

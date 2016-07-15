@@ -50,3 +50,5 @@ func (s *screen) writeText(text string, startX, y int) {
 	}
 
 }
+
+func (s *screen) close() { defer termbox.Close() }
