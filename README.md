@@ -1,14 +1,14 @@
-# netrisse
+# netrisse-go
 
-## see [Netris JS](https://github.com/ctcpip/netris-js) instead
+## see [netrisse](https://github.com/ctcpip/netrisse) instead
 
 ## 🪦 this project is archived and no longer under development 🪦
 
-## see [Netris JS](https://github.com/ctcpip/netris-js) instead
+## see [netrisse](https://github.com/ctcpip/netrisse) instead
 
 a network version of tetris for the console/terminal
 
-![netrisse](https://cloud.githubusercontent.com/assets/15326526/16607516/608a6bfe-4307-11e6-8fed-e1ef35b066b3.gif)
+![netrisse-go](https://cloud.githubusercontent.com/assets/15326526/16607516/608a6bfe-4307-11e6-8fed-e1ef35b066b3.gif)
 
 ### roadmap
 
@@ -20,7 +20,7 @@ a network version of tetris for the console/terminal
 
 I started this project in order to teach myself __[Go](http://golang.org)__
 
-netrisse is a clone of __[netris](https://web.archive.org/web/20070215202226/http://portsmon.freebsd.org/portoverview.py?category=games&portname=netris)__, itself a clone of tetris. as such, the gameplay might contain some variations in regard to your expectations.
+netrisse-go is a clone of __[netris](https://web.archive.org/web/20070215202226/http://portsmon.freebsd.org/portoverview.py?category=games&portname=netris)__, itself a clone of tetris. as such, the gameplay might contain some variations in regard to your expectations.
 
 ### stuff nobody cares about
 
