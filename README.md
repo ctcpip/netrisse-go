@@ -1,10 +1,10 @@
 # netrisse-go
 
-## see [netrisse](https://github.com/ctcpip/netrisse) instead
+## see [Netrisse](https://github.com/ctcpip/netrisse) instead
 
 ## 🪦 this project is archived and no longer under development 🪦
 
-## see [netrisse](https://github.com/ctcpip/netrisse) instead
+## see [Netrisse](https://github.com/ctcpip/netrisse) instead
 
 a network version of tetris for the console/terminal
 
